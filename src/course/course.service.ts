@@ -35,7 +35,6 @@ export class CourseService {
   }
 
   public async createCourse(course: CourseData): Promise<SavedCourseData> {
-    //TODO: cls?
     return this.sequelize.transaction(
       async (transaction) =>
         await this.courseModel.create(course, { transaction }),

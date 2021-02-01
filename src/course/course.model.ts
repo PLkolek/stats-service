@@ -16,7 +16,6 @@ export interface CourseData {
 
 export type SavedCourseData = WithId<CourseData>;
 
-//TODO: custom decorator
 @Table({ underscored: true })
 export class Course extends Model<CourseData> implements CourseData {
   //TODO: additional decorators

@@ -40,6 +40,12 @@ export class CourseController {
       userId,
       courseId,
     );
+    console.log(
+      toDto(CourseLifetimeStatsDto, {
+        ...courseLifetimeStats,
+        averageScore: undefined,
+      }),
+    );
     return toDto(CourseLifetimeStatsDto, courseLifetimeStats);
   }
 

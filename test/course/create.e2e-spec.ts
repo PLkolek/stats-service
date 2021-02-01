@@ -1,9 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { authTests } from '../helpers/auth';
-import { uuidPattern } from '../helpers/uuid';
+
 import * as faker from 'faker';
 import { initApp } from './course.common';
+import { uuidV4Pattern } from '../../src/helpers/uuid';
 
 describe('Course', () => {
   let app: INestApplication;
@@ -62,7 +63,7 @@ describe('Course', () => {
           expect(bodyWithoutId).toEqual({
             name,
           });
-          expect(id).toMatch(uuidPattern);
+          expect(id).toMatch(uuidV4Pattern);
         });
     });
   });

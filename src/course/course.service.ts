@@ -65,9 +65,9 @@ export class CourseService {
       },
     });
 
-    const totalModulesStudied = computedStats.get('totalModulesStudied');
-    const averageScore = computedStats.get('averageScore');
-    const timeStudied = computedStats.get('timeStudied');
+    const totalModulesStudied = computedStats?.get('totalModulesStudied');
+    const averageScore = computedStats?.get('averageScore');
+    const timeStudied = computedStats?.get('timeStudied');
     return {
       totalModulesStudied: totalModulesStudied ? +totalModulesStudied : 0,
       averageScore: averageScore ? +averageScore : null,

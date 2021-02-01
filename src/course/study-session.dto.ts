@@ -2,11 +2,11 @@ import { Expose } from 'class-transformer';
 
 export class StudySessionDto {
   @Expose()
-  id: string;
+  id!: string;
   @Expose()
-  totalModulesStudied: number;
+  totalModulesStudied!: number;
   @Expose()
-  averageScore: number;
+  averageScore!: number;
   @Expose()
-  timeStudied: number;
+  timeStudied!: number;
 }

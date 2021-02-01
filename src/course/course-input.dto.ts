@@ -3,12 +3,12 @@ import { Expose } from 'class-transformer';
 
 export class CourseInputDto {
   @IsNotEmpty()
-  name: string;
+  name!: string;
 }
 
 export class CourseOutputDto {
   @Expose()
-  id: string;
+  id!: string;
   @Expose()
-  name: string;
+  name!: string;
 }

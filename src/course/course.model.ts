@@ -26,12 +26,12 @@ export class Course extends Model<CourseData> implements CourseData {
     primaryKey: true,
     defaultValue: DataType.UUIDV4,
   })
-  id: string;
+  id!: string;
 
   @Column({ type: DataType.STRING, unique: true })
-  name: string;
+  name!: string;
 
   //TODO: cast
   @HasMany(() => StudySession as ModelCtor)
-  studySessions: StudySession[];
+  studySessions!: StudySession[];
 }

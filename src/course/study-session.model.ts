@@ -35,24 +35,24 @@ export class StudySession
     primaryKey: true,
     defaultValue: DataType.UUIDV4,
   })
-  id: string;
+  id!: string;
 
   //TODO: cast
   @ForeignKey(() => Course as ModelCtor)
-  courseId: string;
+  courseId!: string;
 
   @Column({
     type: DataType.UUID,
     allowNull: false,
   })
-  userId: string;
+  userId!: string;
 
   //TODO: cast
   @BelongsTo(() => Course as ModelCtor)
-  course: Course;
+  course!: Course;
 
   @Column(DataType.INTEGER)
-  totalModulesStudied: number;
+  totalModulesStudied!: number;
 
   @Column({
     type: DataType.DECIMAL(10, 2),
@@ -62,8 +62,8 @@ export class StudySession
       return value === null ? null : parseFloat(value);
     },
   })
-  averageScore: number;
+  averageScore!: number;
 
   @Column(DataType.INTEGER)
-  timeStudied: number;
+  timeStudied!: number;
 }

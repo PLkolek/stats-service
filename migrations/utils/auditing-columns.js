@@ -39,7 +39,6 @@ const rollbackAuditedTable = async (queryInterface, tableName) => {
   await queryInterface.dropTrigger(updatedAtTriggerName(tableName));
 };
 
-//TODO: es modules?
 module.exports = {
   createAuditedTable,
   rollbackAuditedTable,

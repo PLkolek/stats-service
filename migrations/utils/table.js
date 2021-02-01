@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// TODO: disable this warning globally
 const {
   createAuditedTable,
   rollbackAuditedTable,

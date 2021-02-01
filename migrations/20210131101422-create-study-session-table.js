@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict';
 
 const { rollbackTable, createTable } = require('./utils/table');

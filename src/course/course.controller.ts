@@ -36,12 +36,6 @@ export class CourseController {
       userId,
       courseId,
     );
-    console.log(
-      toDto(CourseLifetimeStatsDto, {
-        ...courseLifetimeStats,
-        averageScore: undefined,
-      }),
-    );
     return toDto(CourseLifetimeStatsDto, courseLifetimeStats);
   }
 
@@ -51,11 +45,12 @@ export class CourseController {
     @Headers('X-User-Id') userId: string,
     @Body() sessionStudyEvent: SessionStudyEventDto,
   ): Promise<StudySessionDto> {
-    return await this.courseService.addStudySession(
+    const studySession = await this.courseService.addStudySession(
       userId,
       courseId,
       sessionStudyEvent,
     );
+    return toDto(StudySessionDto, studySession);
   }
 
   @Get(':courseId/sessions/:sessionId')

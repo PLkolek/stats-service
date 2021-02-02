@@ -10,6 +10,7 @@ import {
 import { Course } from './course.model';
 import sequelize from 'sequelize';
 import { CourseLifetimeStatistics } from './course-lifetime-statistics.model';
+import { Saved } from '../../helpers/types';
 
 export interface StudySessionData {
   totalModulesStudied: number;
@@ -17,18 +18,15 @@ export interface StudySessionData {
   timeStudied: number;
 }
 
-//TODO: fight that boilerplate
 export interface IStudySession extends StudySessionData {
-  id: string;
   userId: string;
   courseId: string;
 }
 
 @Table({ underscored: true })
-//TODO: WithId vs Omit, custom class for this?
 export class StudySession
-  extends Model<IStudySession, Omit<IStudySession, 'id'>>
-  implements IStudySession {
+  extends Model<Saved<IStudySession>, IStudySession>
+  implements Saved<IStudySession> {
   @Column({
     type: DataType.UUID,
     primaryKey: true,

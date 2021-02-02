@@ -6,18 +6,17 @@ import {
   ModelCtor,
   Table,
 } from 'sequelize-typescript';
-import { StudySession } from './study-session.model';
-import { WithId } from '../../helpers/types';
+import { StudySession } from './study.session.model';
+import { Saved } from '../../helpers/types';
 
-//TODO: fight that boilerplate
-export interface CourseData {
+export interface ICourse {
   name: string;
 }
 
-export type SavedCourseData = WithId<CourseData>;
-
 @Table({ underscored: true })
-export class Course extends Model<CourseData> implements CourseData {
+export class Course
+  extends Model<Saved<ICourse>, ICourse>
+  implements Saved<ICourse> {
   @Column({
     type: DataType.UUID,
     primaryKey: true,

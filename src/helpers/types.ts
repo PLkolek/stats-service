@@ -1,1 +1,1 @@
-export type WithId<T> = T & { id: string };
+export type Saved<T> = T & { id: string };

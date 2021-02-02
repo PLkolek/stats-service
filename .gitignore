@@ -396,3 +396,11 @@ Temporary Items
 # Local
 .env
 dist
+
+
+# .tfstate files
+.terraform
+*.tfstate
+*.tfstate.*
+# ignore tfvars containing secrets
+secret.tfvars

@@ -2,7 +2,7 @@ services:
     postgresql:
         image: postgres:13.1
         environment:
-            - POSTGRES_USER=stats-service
+            - POSTGRES_USER=statsservice
             - POSTGRES_PASSWORD=PizzaMargaritaRocks
         ports:
             - 5432:5432

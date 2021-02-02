@@ -1,0 +1,27 @@
+[
+  {
+    "name": "stats-service",
+    "image": "414323207540.dkr.ecr.eu-central-1.amazonaws.com/stats-service:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 3000
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "stats-service-test",
+        "awslogs-region": "eu-central-1",
+        "awslogs-stream-prefix": "stats-service"
+      }
+    },
+    "environment": [
+      {
+        "name": "NODE_ENV",
+        "value": "test"
+      }
+    ]
+  }
+]

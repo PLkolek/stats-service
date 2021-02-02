@@ -1,4 +1,4 @@
-import { Module, ParseUUIDPipe, ValidationPipe } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CourseController } from './course/course.controller';
@@ -9,7 +9,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { StudySession } from './course/study-session.model';
 import { Course } from './course/course.model';
 import { CourseService } from './course/course.service';
-import { UniqueConstraintExceptionFilter } from './db/unique-constraint-exception.filter';
+import { UniqueConstraintExceptionFilter } from './exception-filters/unique-constraint-exception.filter';
 
 //TODO: separate module for courses
 @Module({
@@ -22,8 +22,6 @@ import { UniqueConstraintExceptionFilter } from './db/unique-constraint-exceptio
   providers: [
     AppService,
     CourseService,
-    //TODO: lol, why is it needed?
-    ParseUUIDPipe,
     {
       provide: APP_GUARD,
       useClass: XUserIdHeaderGuard,

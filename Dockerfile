@@ -30,7 +30,7 @@ RUN npm ci \
 
 FROM node:12-alpine
 
-ENV NODE_ENV test
+ENV NODE_ENV prod
 
 USER node
 WORKDIR /home/node

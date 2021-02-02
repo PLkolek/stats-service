@@ -1,5 +1,5 @@
 variable "environment" {
-  default = "test"
+  default = "prod"
 }
 
 variable "db_password" {

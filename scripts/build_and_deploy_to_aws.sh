@@ -15,8 +15,8 @@ docker push $DOCKER_REGISTRY_URL/stats-service:latest
 docker push $DOCKER_REGISTRY_URL/stats-service:${COMMIT_HASH}
 
 TASK_DEFINTION_NAME=stats-service
-CLUSTER_NAME=stats-service-test
-SERVICE_NAME=stats-service-test
+CLUSTER_NAME=stats-service-prod
+SERVICE_NAME=stats-service-prod
 
 TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition "$TASK_DEFINTION_NAME" --region "${AWS_REGION}")
 NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | jq --arg IMAGE "$IMAGE_TAG" '.taskDefinition | .containerDefinitions[0].image = $IMAGE | del(.taskDefinitionArn) | del(.revision) | del(.status) | del(.requiresAttributes) | del(.compatibilities)')

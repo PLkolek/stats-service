@@ -10,10 +10,10 @@ resource "aws_ecr_lifecycle_policy" "remove-old-untagged-images" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Keep only 10 test images",
+            "description": "Keep only 10 ${var.environment} images",
             "selection": {
                 "tagStatus": "tagged",
-                "tagPrefixList": ["test"],
+                "tagPrefixList": ["${var.environment}"],
                 "countType": "imageCountMoreThan",
                 "countNumber": 10
             },

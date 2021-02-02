@@ -1,6 +1,6 @@
 locals {
   region = "eu-central-1"
-  environment = "test"
+  environment = "prod"
 }
 
 provider "aws" {

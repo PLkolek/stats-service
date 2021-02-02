@@ -13,11 +13,11 @@ export class ParameterService {
   ) {}
 
   public async getParameter(parameterName: ParameterName): Promise<string> {
-    if (getNodeEnv() === 'development') {
+    if (getNodeEnv() !== 'prod') {
       return this.getParameterFromEnv(parameterName);
     }
     return this.getParameterFromSSM(
-      `/config/stats-service_test/${parameterName}`,
+      `/config/stats-service_prod/${parameterName}`,
     );
   }
 

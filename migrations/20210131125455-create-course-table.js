@@ -1,6 +1,6 @@
 'use strict';
 
-const { rollbackTable, createTable } = require('./utils/table');
+const { rollbackTable, createTable } = require('./helpers/table');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

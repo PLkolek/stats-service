@@ -23,5 +23,6 @@ module.exports = {
 
   down: async (queryInterface) => {
     await rollbackTable(queryInterface, 'courses');
+    await queryInterface.removeColumn('study_sessions', 'course_id');
   },
 };

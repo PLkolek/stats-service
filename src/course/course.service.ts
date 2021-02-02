@@ -55,7 +55,6 @@ export class CourseService {
     sessionId: string,
   ) {
     await this.getCourseOrThrow(courseId);
-    //TODO: indexes
     const studySession = await this.studySessionModel.findOne({
       where: {
         id: sessionId,

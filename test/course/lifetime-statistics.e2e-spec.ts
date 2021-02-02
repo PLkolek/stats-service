@@ -41,8 +41,8 @@ describe('Course', () => {
       const courseId = await factory.course();
 
       await factory.studySession(courseId, {
-        totalModulesStudied: 4,
-        averageScore: 4,
+        totalModulesStudied: 1,
+        averageScore: 5,
         timeStudied: 120,
       });
 
@@ -53,7 +53,7 @@ describe('Course', () => {
       });
 
       return makeAuthorizedReq(courseId).expect(200).expect({
-        totalModulesStudied: 6,
+        totalModulesStudied: 3,
         averageScore: 3,
         timeStudied: 180,
       });

@@ -8,9 +8,9 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Course } from './course.model';
-import sequelize from 'sequelize';
 import { CourseLifetimeStatistics } from './course-lifetime-statistics.model';
 import { Saved } from '../../helpers/types';
+import { QueryTypes } from 'sequelize';
 
 export interface StudySessionData {
   totalModulesStudied: number;
@@ -66,24 +66,23 @@ export class StudySession
     userId: string,
     courseId: string,
   ): Promise<CourseLifetimeStatistics> {
-    const computedStats = await this.findOne({
-      attributes: [
-        [
-          sequelize.fn('SUM', sequelize.col('total_modules_studied')),
-          'totalModulesStudied',
-        ],
-        [sequelize.fn('AVG', sequelize.col('average_score')), 'averageScore'],
-        [sequelize.fn('SUM', sequelize.col('time_studied')), 'timeStudied'],
-      ],
-      where: {
-        userId,
-        courseId,
+    const results = await this.sequelize?.query(
+      {
+        query: `
+      SELECT SUM(total_modules_studied) AS total_modules_studied,
+             SUM(average_score*total_modules_studied) / SUM(total_modules_studied) AS average_score,
+             SUM(time_studied) AS time_studied
+      FROM study_sessions
+      WHERE user_id = ? AND course_id = ?`,
+        values: [userId, courseId],
       },
-    });
+      { type: QueryTypes.SELECT },
+    );
+    const computedStats = results?.[0] as any;
 
-    const totalModulesStudied = computedStats?.get('totalModulesStudied');
-    const averageScore = computedStats?.get('averageScore');
-    const timeStudied = computedStats?.get('timeStudied');
+    const totalModulesStudied = computedStats?.total_modules_studied;
+    const averageScore = computedStats?.average_score;
+    const timeStudied = computedStats?.time_studied;
     return {
       totalModulesStudied: totalModulesStudied ? +totalModulesStudied : 0,
       averageScore: averageScore ? +averageScore : null,

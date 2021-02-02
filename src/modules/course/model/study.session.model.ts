@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript';
 import { Course } from './course.model';
 import { CourseLifetimeStatistics } from './course-lifetime-statistics.model';
-import { Saved } from '../../helpers/types';
+import { Saved } from '../../../helpers/types';
 import { QueryTypes } from 'sequelize';
 
 export interface StudySessionData {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
 import { ConfigService } from '@nestjs/config';
-import { getNodeEnv } from '../helpers/env';
+import { getNodeEnv } from '../../helpers/env';
 
 type ParameterName = 'DB_HOST' | 'DB_PASSWORD' | 'DB_PORT';
 

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { Observable } from 'rxjs';
-import { isUUIDv4 } from '../helpers/uuid';
+import { isUUIDv4 } from '../../helpers/uuid';
 
 @Injectable()
 export class XUserIdHeaderGuard implements CanActivate {

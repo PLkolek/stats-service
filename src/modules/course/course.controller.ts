@@ -11,7 +11,7 @@ import { CourseLifetimeStatsDto } from './dto/course-lifetime-stats.dto';
 import { SessionStudyEventDto } from './dto/session-study-event.dto';
 import { CourseService } from './course.service';
 import { CourseInputDto, CourseOutputDto } from './dto/course-input.dto';
-import { toDto } from '../helpers/dto';
+import { toDto } from '../../helpers/dto';
 import { StudySessionDto } from './dto/study-session.dto';
 
 @Controller('courses')

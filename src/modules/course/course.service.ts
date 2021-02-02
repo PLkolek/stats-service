@@ -8,7 +8,7 @@ import { ICourse, Course } from './model/course.model';
 import { InjectModel } from '@nestjs/sequelize';
 import { Sequelize, Transaction } from 'sequelize';
 import { CourseLifetimeStatistics } from './model/course-lifetime-statistics.model';
-import { Saved } from '../helpers/types';
+import { Saved } from '../../helpers/types';
 
 @Injectable()
 export class CourseService {

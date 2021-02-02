@@ -7,7 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { StudySession } from './study.session.model';
-import { Saved } from '../../helpers/types';
+import { Saved } from '../../../helpers/types';
 
 export interface ICourse {
   name: string;

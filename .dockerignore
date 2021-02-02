@@ -17,3 +17,4 @@ Dockerfile
 README.md
 tslint.json
 nodemon.json
+scripts

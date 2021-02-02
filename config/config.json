@@ -8,9 +8,9 @@
   },
   "prod": {
     "username": "statsservice",
-    "password": "",
+    "password": "YOUR_DB_PASSWORD",
     "database": "statsservice",
-    "host": "stats-service-test.c4xvrfcvmnce.eu-central-1.rds.amazonaws.com",
+    "host": "stats-service-prod.c8cnog0wlsiq.eu-central-1.rds.amazonaws.com",
     "dialect": "postgres"
   }
 }

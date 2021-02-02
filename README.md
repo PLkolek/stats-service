@@ -10,10 +10,10 @@ There is no authentication and no authorization. Auth is not a concern for stats
 
 ## Technology choices
 
-* TypeScript - obviously ;)
-* Nest.js - similar to Spring Boot, great documentation, provides a clean structure and architecture out of the box
-* Sequelize - because I had a bad experience with TypeORM. With such a complicated piece of software like ORM =, better stick to something battle-tested (and Sequelize seems battle tested)
-* Postgres - as they say, non-relational DBs optimize for speed, relational DBs for ease of evolution. This project is just starting, so it's nice to have something enforcing correctness in the data and enabling easy implementation of future use-cases. And when it comes to relational DBs, one can't go wrong with Postgres (Open-Source, predictable, battle tested)
+- TypeScript - obviously ;)
+- Nest.js - similar to Spring Boot, great documentation, provides a clean structure and architecture out of the box
+- Sequelize - because I had a bad experience with TypeORM. With such a complicated piece of software like ORM =, better stick to something battle-tested (and Sequelize seems battle tested)
+- Postgres - as they say, non-relational DBs optimize for speed, relational DBs for ease of evolution. This project is just starting, so it's nice to have something enforcing correctness in the data and enabling easy implementation of future use-cases. And when it comes to relational DBs, one can't go wrong with Postgres (Open-Source, predictable, battle tested)
 
 ## Project structure
 
@@ -40,7 +40,7 @@ Tests which have to be repeated for each endpoint (i.e. auth tests) are extracte
 
 ## Migrations
 
-One can spot a recurring pattern in different projects, where every time a table or column has to be added to the database, 
+One can spot a recurring pattern in different projects, where every time a table or column has to be added to the database,
 a developer copy-pastes existing mutation and introduces some changes. And, just like we have mutations in the DNA which occur during copying, mutations occur in migrations. After a while, all hell breaks lose, and we get: inconsistent types and naming, missing auditing columns, triggers and so on.
 
 To alleviate that at least partially, common parts of each column definition were extracted into `helpers/`, allowing the developer to focus on the content of his table and get the basics right.
@@ -54,31 +54,33 @@ The app is packaged into a Docker container, uploaded to ECR and then deployed i
 Postgres is running on RDS. Just like Fargate, it allows access from _your IP_ and also from the app's container, obviously. Database host, port and password in SSM and the app reads them on startup when run in AWS. Locally, it uses `.env` for this purpose.
 
 ## Nice stuff I haven't done, but would do
+
 Everyone wants to build a perfect a program, but also one has to stop somewhere, so below is an incomplete list of things I had in mind but didn't do. I'd say it's because of time constraints, despite these being unknown :)
 
-* integrate husky and lint-staged for precommit prettier and eslint
-* swagger for API documentation
-* custom id types - currently every id is passed as string, so one can pass courseId where userId is expected and vice versa. Wrapper types could be used, giving more type safety
-* ParseUUIDPipe doesn't report which argument failed parsing
-* due to an issue in Sequelize v6 casting is needed: https://github.com/sequelize/sequelize/issues/12842
-* faker.js can't generate unique values, making tests a little fragile (a little, I haven't experienced it :))
-* spinning up a clean database for e2e tests
-* config for migrations is provided separately  
-* migrations are written in JS, not TS :(
-* use umzug to run migrations on app startup instead of manually
-* CI/CD with Gitlab CI or Github Actions
+- integrate husky and lint-staged for precommit prettier and eslint
+- swagger for API documentation
+- custom id types - currently every id is passed as string, so one can pass courseId where userId is expected and vice versa. Wrapper types could be used, giving more type safety
+- ParseUUIDPipe doesn't report which argument failed parsing
+- due to an issue in Sequelize v6 casting is needed: https://github.com/sequelize/sequelize/issues/12842
+- faker.js can't generate unique values, making tests a little fragile (a little, I haven't experienced it :))
+- spinning up a clean database for e2e tests
+- config for migrations is provided separately
+- migrations are written in JS, not TS :(
+- use umzug to run migrations on app startup instead of manually
+- CI/CD with Gitlab CI or Github Actions
 
 ## Running
 
 ### Prerequisites
 
-* [nvm](https://github.com/nvm-sh/nvm)
-* [Docker](https://www.docker.com/))
-* [jq](https://stedolan.github.io/jq/)
-* [AWS CLI](https://aws.amazon.com/cli/)
-* [tfenv](https://github.com/tfutils/tfenv)
+- [nvm](https://github.com/nvm-sh/nvm)
+- [Docker](https://www.docker.com/))
+- [jq](https://stedolan.github.io/jq/)
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [tfenv](https://github.com/tfutils/tfenv)
 
 ### Running locally
+
 ```
 nvm use
 npm install
@@ -92,7 +94,7 @@ npm run start:dev # npm test:e2e
 ```
 aws configure
 cd infra/prod
-echo 'db_password = "YOUR_DB_PASSWORD" > secret.tfvars'
+echo 'db_password = "YOUR_DB_PASSWORD"' > secret.tfvars
 tfenv use
 terraform init
 terraform apply -var-file="secret.tfvars"
@@ -103,9 +105,9 @@ cd ../../
 env NODE_ENV=prod npx sequelize-cli db:migrate
 
 # fill AWS_REGION and DOCKER_REGISTRY_URL in scripts/build_and_deploy_to_aws.sh
-# based on output from terraform
+# based on output from terraform (without /stats-service suffix!)
 
 npm run deploy
 ```
 
-Check if the task started properly in AWS Console, check out the public IP and start testing!
+Check if the task started properly in AWS Console, check out the public IP and start testing on port 3000!

@@ -1,5 +1,5 @@
 locals {
-  region = "eu-central-1"
+  region      = "eu-central-1"
   environment = "prod"
 }
 
@@ -8,9 +8,9 @@ provider "aws" {
 }
 
 module "stats-service" {
-  source = "../modules/stats-service"
-  db_password = var.db_password
-  environment = local.environment
+  source                  = "../modules/stats-service"
+  db_password             = var.db_password
+  environment             = local.environment
   fargate-task-definition = file("task-definitions/stats-service.json")
 }
 
@@ -19,7 +19,8 @@ output "db_host" {
 }
 
 output "db_password" {
-  value = module.stats-service.db_password
+  value     = module.stats-service.db_password
+  sensitive = true
 }
 
 output "ecr_url" {

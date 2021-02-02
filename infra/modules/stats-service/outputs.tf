@@ -3,7 +3,8 @@ output "db_host" {
 }
 
 output "db_password" {
-  value = module.db.this_db_instance_password
+  value     = module.db.this_db_instance_password
+  sensitive = true
 }
 
 output "ecr_url" {

@@ -12,7 +12,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "stats-service-test",
+        "awslogs-group": "stats-service-prod",
         "awslogs-region": "eu-central-1",
         "awslogs-stream-prefix": "stats-service"
       }
@@ -20,7 +20,7 @@
     "environment": [
       {
         "name": "NODE_ENV",
-        "value": "test"
+        "value": "prod"
       }
     ]
   }

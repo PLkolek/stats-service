@@ -1,4 +1,4 @@
-import { StudySessionData } from '../../src/course/study-session.model';
+import { StudySessionData } from '../../src/course/model/study-session.model';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import * as faker from 'faker';

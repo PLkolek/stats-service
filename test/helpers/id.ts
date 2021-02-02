@@ -1,5 +1,5 @@
 import * as supertest from 'supertest';
-import { capitalize } from 'sequelize-typescript/dist/shared/string';
+import { capitalize } from '../../src/helpers/string';
 
 export const idTests = <Req extends supertest.Test>(
   modelName: string,
@@ -22,7 +22,6 @@ export const idTests = <Req extends supertest.Test>(
       .expect(404)
       .expect({
         statusCode: 404,
-        //TODO: own capitalize
         message: `${capitalize(
           modelName,
         )} (id=0be82b06-7ec2-425c-89dd-3e3325eaf4b8) not found`,

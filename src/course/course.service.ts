@@ -2,12 +2,12 @@ import {
   IStudySession,
   StudySession,
   StudySessionData,
-} from './study-session.model';
+} from './model/study-session.model';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Course, CourseData, SavedCourseData } from './course.model';
+import { Course, CourseData, SavedCourseData } from './model/course.model';
 import { InjectModel } from '@nestjs/sequelize';
-import sequelize, { Sequelize, Transaction } from 'sequelize';
-import { CourseLifetimeStatistics } from './course-lifetime-statistics.model';
+import { Sequelize, Transaction } from 'sequelize';
+import { CourseLifetimeStatistics } from './model/course-lifetime-statistics.model';
 
 @Injectable()
 export class CourseService {
@@ -46,32 +46,7 @@ export class CourseService {
     courseId: string,
   ): Promise<CourseLifetimeStatistics> {
     await this.getCourseOrThrow(courseId);
-    const computedStats = await this.studySessionModel.findOne({
-      //TODO: this should utilize field not column names
-      //TODO: move to repository/model
-      //TODO: simplify
-      attributes: [
-        [
-          sequelize.fn('SUM', sequelize.col('total_modules_studied')),
-          'totalModulesStudied',
-        ],
-        [sequelize.fn('AVG', sequelize.col('average_score')), 'averageScore'],
-        [sequelize.fn('SUM', sequelize.col('time_studied')), 'timeStudied'],
-      ],
-      where: {
-        userId,
-        courseId,
-      },
-    });
-
-    const totalModulesStudied = computedStats?.get('totalModulesStudied');
-    const averageScore = computedStats?.get('averageScore');
-    const timeStudied = computedStats?.get('timeStudied');
-    return {
-      totalModulesStudied: totalModulesStudied ? +totalModulesStudied : 0,
-      averageScore: averageScore ? +averageScore : null,
-      timeStudied: timeStudied ? +timeStudied : 0,
-    };
+    return this.studySessionModel.getCourseLifetimeStats(userId, courseId);
   }
 
   public async getStudySession(
@@ -96,7 +71,6 @@ export class CourseService {
     return studySession;
   }
 
-  //TODO: user auth
   private async getCourseOrThrow(courseId: string, transaction?: Transaction) {
     const course = await this.courseModel.findByPk(courseId, { transaction });
     if (!course) {

@@ -75,6 +75,11 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## TODO
 * prettier and eslint git hooks
 * performance assumptions
+* swagger
+* custom id types
+* better error reporting from pipes
+* cast in model references: https://github.com/sequelize/sequelize/issues/12842
+* auth
 
 ## Running
 ```

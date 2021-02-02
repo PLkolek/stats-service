@@ -7,18 +7,16 @@ import {
   ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
-import { CourseLifetimeStatsDto } from './course-lifetime-stats.dto';
-import { SessionStudyEventDto } from './session-study-event.dto';
+import { CourseLifetimeStatsDto } from './dto/course-lifetime-stats.dto';
+import { SessionStudyEventDto } from './dto/session-study-event.dto';
 import { CourseService } from './course.service';
-import { CourseInputDto, CourseOutputDto } from './course-input.dto';
+import { CourseInputDto, CourseOutputDto } from './dto/course-input.dto';
 import { toDto } from '../helpers/dto';
-import { StudySessionDto } from './study-session.dto';
+import { StudySessionDto } from './dto/study-session.dto';
 
 @Controller('courses')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
-
-  //TODO: add swagger?
 
   @Post()
   async createCourse(
@@ -29,8 +27,6 @@ export class CourseController {
     return toDto(CourseOutputDto, savedCourse);
   }
 
-  //TODO: add parameter in exception
-  //TODO: custom type for user and course id?
   @Get(':courseId')
   async getCourseLifetimeStatistics(
     @Param('courseId', ParseUUIDPipe) courseId: string,

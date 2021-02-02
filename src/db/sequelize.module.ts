@@ -15,7 +15,7 @@ export default SequelizeModule.forRootAsync({
       password: config.dbPassword,
       database: 'statsservice',
       autoLoadModels: true,
-      synchronize: true,
+      synchronize: false,
       repositoryMode: true,
     };
   },

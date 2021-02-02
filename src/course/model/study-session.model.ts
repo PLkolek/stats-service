@@ -8,6 +8,8 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Course } from './course.model';
+import sequelize from 'sequelize';
+import { CourseLifetimeStatistics } from './course-lifetime-statistics.model';
 
 export interface StudySessionData {
   totalModulesStudied: number;
@@ -22,14 +24,11 @@ export interface IStudySession extends StudySessionData {
   courseId: string;
 }
 
-//TODO: custom decorator
 @Table({ underscored: true })
 //TODO: WithId vs Omit, custom class for this?
 export class StudySession
   extends Model<IStudySession, Omit<IStudySession, 'id'>>
   implements IStudySession {
-  //TODO: additional decorators
-
   @Column({
     type: DataType.UUID,
     primaryKey: true,
@@ -37,7 +36,6 @@ export class StudySession
   })
   id!: string;
 
-  //TODO: cast
   @ForeignKey(() => Course as ModelCtor)
   courseId!: string;
 
@@ -47,7 +45,6 @@ export class StudySession
   })
   userId!: string;
 
-  //TODO: cast
   @BelongsTo(() => Course as ModelCtor)
   course!: Course;
 
@@ -66,4 +63,33 @@ export class StudySession
 
   @Column(DataType.INTEGER)
   timeStudied!: number;
+
+  public static async getCourseLifetimeStats(
+    userId: string,
+    courseId: string,
+  ): Promise<CourseLifetimeStatistics> {
+    const computedStats = await this.findOne({
+      attributes: [
+        [
+          sequelize.fn('SUM', sequelize.col('total_modules_studied')),
+          'totalModulesStudied',
+        ],
+        [sequelize.fn('AVG', sequelize.col('average_score')), 'averageScore'],
+        [sequelize.fn('SUM', sequelize.col('time_studied')), 'timeStudied'],
+      ],
+      where: {
+        userId,
+        courseId,
+      },
+    });
+
+    const totalModulesStudied = computedStats?.get('totalModulesStudied');
+    const averageScore = computedStats?.get('averageScore');
+    const timeStudied = computedStats?.get('timeStudied');
+    return {
+      totalModulesStudied: totalModulesStudied ? +totalModulesStudied : 0,
+      averageScore: averageScore ? +averageScore : null,
+      timeStudied: timeStudied ? +timeStudied : 0,
+    };
+  }
 }

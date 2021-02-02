@@ -15,8 +15,7 @@ export class UniqueConstraintExceptionFilter implements ExceptionFilter {
 
     response.status(HttpStatus.CONFLICT).json({
       statusCode: HttpStatus.CONFLICT,
-      //TODO: handle this better
-      message: exception.errors[0].message,
+      message: exception.errors[0]?.message ?? 'Unique constraint violated',
     });
   }
 }

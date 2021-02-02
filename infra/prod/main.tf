@@ -13,3 +13,16 @@ module "stats-service" {
   environment = local.environment
   fargate-task-definition = file("task-definitions/stats-service.json")
 }
+
+output "db_host" {
+  value = module.stats-service.db_host
+}
+
+output "db_password" {
+  value = module.stats-service.db_password
+}
+
+output "ecr_url" {
+  value = module.stats-service.ecr_url
+}
+

@@ -62,7 +62,8 @@ Everyone wants to build a perfect a program, but also one has to stop somewhere,
 * ParseUUIDPipe doesn't report which argument failed parsing
 * due to an issue in Sequelize v6 casting is needed: https://github.com/sequelize/sequelize/issues/12842
 * faker.js can't generate unique values, making tests a little fragile (a little, I haven't experienced it :))
-* spinning up a clean database for e2e tests  
+* spinning up a clean database for e2e tests
+* config for migrations is provided separately  
 * migrations are written in JS, not TS :(
 * use umzug to run migrations on app startup instead of manually
 * CI/CD with Gitlab CI or Github Actions
@@ -75,12 +76,14 @@ Everyone wants to build a perfect a program, but also one has to stop somewhere,
 * [Docker](https://www.docker.com/))
 * [jq](https://stedolan.github.io/jq/)
 * [AWS CLI](https://aws.amazon.com/cli/)
+* [tfenv](https://github.com/tfutils/tfenv)
 
 ### Running locally
 ```
 nvm use
 npm install
 docker-compose -f docker-compose-local.yml up -d
+npx sequelize-cli db:migrate
 npm run start:dev # npm test:e2e
 ```
 
@@ -88,7 +91,21 @@ npm run start:dev # npm test:e2e
 
 ```
 aws configure
+cd infra/prod
+echo 'db_password = "YOUR_DB_PASSWORD" > secret.tfvars'
+tfenv use
+terraform init
+terraform apply -var-file="secret.tfvars"
+cd ../../
 
+# fill prod.host and prod.password in config/config.json based on output from terraform
 
+env NODE_ENV=prod npx sequelize-cli db:migrate
+
+# fill AWS_REGION and DOCKER_REGISTRY_URL in scripts/build_and_deploy_to_aws.sh
+# based on output from terraform
+
+npm run deploy
 ```
 
+Check if the task started properly in AWS Console, check out the public IP and start testing!

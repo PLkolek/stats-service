@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-AWS_REGION=eu-central-1
-DOCKER_REGISTRY_URL=414323207540.dkr.ecr.eu-central-1.amazonaws.com
+AWS_REGION=
+DOCKER_REGISTRY_URL=
 
 COMMIT_HASH=$(git rev-parse --short HEAD)
 IMAGE_TAG=$DOCKER_REGISTRY_URL/stats-service:${COMMIT_HASH}
